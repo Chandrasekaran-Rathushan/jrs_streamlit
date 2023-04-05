@@ -1,0 +1,1 @@
+web: sh setup.sh && streamlit jrs_app.py
