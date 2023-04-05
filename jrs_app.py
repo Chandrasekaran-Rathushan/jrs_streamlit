@@ -10,7 +10,7 @@ os.environ['OAUTHLIB_INSECURE_TRANSPORT'] = '1'
 from urllib.parse import urlencode, urlunparse, urlparse
 
 filename = "/data/client_det.pickle"
-os.makedirs(os.path.dirname(filename), exist_ok=True)
+# os.makedirs(os.path.dirname(filename), exist_ok=True)
 
 from linkedin_api import Linkedin
 
