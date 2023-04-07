@@ -10,7 +10,7 @@ os.environ['OAUTHLIB_INSECURE_TRANSPORT'] = '1'
 from urllib.parse import urlencode, urlunparse, urlparse
 
 filename = "/data/client_det.pickle"
-# os.makedirs(os.path.dirname(filename), exist_ok=True)
+os.makedirs(os.path.dirname(filename), exist_ok=True)
 
 from linkedin_api import Linkedin
 
@@ -41,7 +41,13 @@ def app():
     # Define your client ID and client secret
     client_id = '86fnoq3p9reokj'
     client_secret = 'unD661syK3kHMdPt'
-    redirect_uri = 'http://localhost:8501/?page=home'
+
+    hostname = st.get_option('browser.serverAddress')
+    port = st.get_option('browser.serverPort')
+
+    # redirect_uri = 'https://jrs-streamlit-c5xok5423q-ew.a.run.app/?page=home'
+
+    redirect_uri = f'http://{hostname}:{port}/?page=home'
 
     # Create an OAuth2Session instance with the client ID and secret
     linkedin = OAuth2Session(client_id=client_id, redirect_uri=redirect_uri, scope="r_emailaddress,r_liteprofile")

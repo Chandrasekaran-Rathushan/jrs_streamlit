@@ -15,7 +15,7 @@ import math
 
 
 #import trained tfidx vectorizer and data
-DATA_PATH = os.path.normpath(os.path.abspath('data'))
+DATA_PATH = './data'
 
 data = pd.read_csv(f'{DATA_PATH}/recommendation_data.csv')
 

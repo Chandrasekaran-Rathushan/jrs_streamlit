@@ -28,9 +28,7 @@ def show():
             st.experimental_rerun()
 
     wait = st.markdown("<h3 style='color: red;'>Please wait ...</h3>", unsafe_allow_html=True)
-    df = pd.read_csv('C:/Users/rathu/OneDrive/Desktop/JRS/glassdoor_reviews.csv')
-
-    print(df.head(1))
+    df = pd.read_csv('./data/glassdoor_reviews.csv')
    
 
     def is_nan_float(val):

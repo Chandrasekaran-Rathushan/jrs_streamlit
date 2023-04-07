@@ -46,7 +46,7 @@ def get_data_from_site(url):
     driver.get(url)
 
     # Wait for the page to load
-    wait = WebDriverWait(driver, 10)
+    wait = WebDriverWait(driver, 20)
     wait.until(EC.presence_of_element_located((By.TAG_NAME, 'body')))
 
     time.sleep(10)
@@ -71,6 +71,13 @@ def get_data_from_site(url):
     headlines = []
     pros_list = []
     cons_list = []
+
+    overall_ratings_ = []
+    work_life_balances_ = []
+    culture_valuess_ = []
+    diversity_inclusions_ = []
+    career_opps_ = []
+    comp_benefits_list_ = []
 
     # loop through each review div and extract the relevant information
     for review_div in review_divs:
@@ -175,10 +182,10 @@ def get_data_from_site(url):
     
     df["cleaned_review"] = df.review.apply(lambda x: clean_text(x))
 
-    with open('C:/Users/rathu/OneDrive/Desktop/JRS/data_full/tfidf-vectorizer.pkl', 'rb') as tfidx_vectorizer_file:
+    with open('./data/recommendation_tfidf_vectorizer.pkl', 'rb') as tfidx_vectorizer_file:
         tfidf_vectorizer = pickle.load(tfidx_vectorizer_file)
 
-    with open('C:/Users/rathu/OneDrive/Desktop/JRS/data_full/sentiment-classification-svc-model.pkl', 'rb') as svm_model_file:
+    with open('./data/sentiment-classification-svc-model.pkl', 'rb') as svm_model_file:
         model = pickle.load(svm_model_file)
     
     predicted_labels = model.predict(tfidf_vectorizer.transform(df['cleaned_review']))
@@ -189,7 +196,7 @@ def get_data_from_site(url):
     df.loc[predicted_labels == 0, 'weighted_sentiment_score'] = (df.loc[predicted_labels == 0, 'lexicon_sentiment_score'] * 0.75) + (-1 * 0.25)
 
     # Calculate word base sentiment score and overall sentiment score
-    words_df = pd.read_csv(f'C:/Users/rathu/OneDrive/Desktop/JRS/pos_neg.csv')
+    words_df = pd.read_csv(f'./data/pos_neg.csv')
 
     pos_words = set(words_df['positive'].values.tolist())
     neg_words = set(words_df['negative'].values.tolist())
@@ -293,6 +300,7 @@ def show():
     hostname = st.get_option('browser.serverAddress')
     port = st.get_option('browser.serverPort')
 
+    # url_ = f"https://jrs-streamlit-c5xok5423q-ew.a.run.app/?page=review_employer&company={company}"
     url_ = f"http://{hostname}:{port}/?page=review_employer&company={company}"
     st.write(url_)
 

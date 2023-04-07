@@ -2,7 +2,7 @@ import streamlit as st
 import pandas as pd
 
 def show():
-    df = pd.read_csv('C:/Users/rathu/OneDrive/Desktop/JRS/glassdoor_reviews.csv')
+    df = pd.read_csv('./data/glassdoor_reviews.csv')
     companies = df['firm'].unique().tolist()
 
     st.markdown(
@@ -43,6 +43,7 @@ def show():
     company = st.text_input("Company name")
 
     base_url = st.get_option('server.baseUrlPath')
+    # base_url = 'https://jrs-streamlit-c5xok5423q-ew.a.run.app'
 
     if company and company != '':
         if company not in companies:
