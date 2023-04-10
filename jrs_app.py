@@ -45,9 +45,9 @@ def app():
     hostname = st.get_option('browser.serverAddress')
     port = st.get_option('browser.serverPort')
 
-    # redirect_uri = 'https://jrs-streamlit-c5xok5423q-ew.a.run.app/?page=home'
+    redirect_uri = 'https://jrs-streamlit-c5xok5423q-ew.a.run.app/?page=home'
 
-    redirect_uri = f'http://{hostname}:{port}/?page=home'
+    # redirect_uri = f'http://{hostname}:{port}/?page=home'
 
     # Create an OAuth2Session instance with the client ID and secret
     linkedin = OAuth2Session(client_id=client_id, redirect_uri=redirect_uri, scope="r_emailaddress,r_liteprofile")
@@ -104,42 +104,6 @@ def app():
                     email = profile_email['elements'][0]['handle~']['emailAddress']
 
                     user = {'name': name, 'picture_url':picture_url, 'email': email, 'fname': fname, 'lname': lname }
-
-                     # Enter your LinkedIn email address and password
-                    USERNAME = 'cooldiana6@gmail.com'
-                    PASSWORD = 'iamabadboy'
-
-                    client = None
-
-                    try:
-                        with open('/data/client_det.pickle', 'rb') as f:
-                            client = pickle.load(f)
-                            f.close()
-                    except FileNotFoundError:
-                        print("****** NEED TO AUTHENTICATE ******")
-
-                    if client is None:
-                        # Create a LinkedIn API client object and login
-                        client = Linkedin(USERNAME, PASSWORD)
-
-                        with open('/data/client_det.pickle', 'wb') as f:
-                            pickle.dump(client, f, pickle.HIGHEST_PROTOCOL)
-                            f.close()
-
-                    # Search for users matching the query
-                    search_results = client.search_people(
-                        keywords=name,
-                        limit=1)
-                    
-                    # Extract the first user from the search results
-                    searched_user = search_results[0]
-
-                    # Extract the user's public profile URL from their profile data
-                    profile_url = f"https://www.linkedin.com/in/{searched_user['public_id']}/"
-                    public_userid =  searched_user['public_id']
-
-                    user.update(profile_url=profile_url)
-                    user.update(public_userid=public_userid)
 
                     st.session_state.user = user
 

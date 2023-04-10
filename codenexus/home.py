@@ -178,9 +178,6 @@ def show():
 
             
 
-    profile_url = st.session_state.user['profile_url']
-    public_userid = st.session_state.user['public_userid']
-
     if st.session_state.initial_run:
         backdrop = st.markdown("""<div style="position: fixed;top: 0;left: 0;height: 100%;width: 100%;background-color: rgba(0, 0, 0, 0.5);z-index: 0;"></div>""", 
                             unsafe_allow_html=True)
@@ -204,20 +201,12 @@ def show():
         modal.add_element(modal_spinner)
         modal.show_modal()
 
-        time.sleep(5)
+        time.sleep(1)
 
-    
     try:
-        profile_data_file_path = os.path.normpath(os.path.abspath('data_scrapper/data/linkedin_people_profile_{}.json'.format(public_userid)))
-        f = open(profile_data_file_path, "r")
-        # st.write('from file', f.read())
-        f.close()
-
+        pass
     except FileNotFoundError:
-        scrapy_project_path = os.path.normpath(os.path.abspath('data_scrapper'))
-        # st.write(scrapy_project_path)
-        scrapy_command = 'scrapy crawl linkedin_people_profile -a username={} -O data/linkedin_people_profile_{}.json:json'.format(public_userid, public_userid)
-        subprocess.run(scrapy_command.split(), cwd=scrapy_project_path)
+        pass
 
     finally:
         if st.session_state.initial_run:
@@ -330,7 +319,6 @@ def show():
 
         st.markdown(html_code, unsafe_allow_html=True, )
 
-    st.write(profile_url)
 
     # Log out button
     if not st.session_state.logged_in:

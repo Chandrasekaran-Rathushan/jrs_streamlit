@@ -42,8 +42,8 @@ def show():
 
     company = st.text_input("Company name")
 
-    base_url = st.get_option('server.baseUrlPath')
-    # base_url = 'https://jrs-streamlit-c5xok5423q-ew.a.run.app'
+    # base_url = st.get_option('server.baseUrlPath')
+    base_url = 'https://jrs-streamlit-c5xok5423q-ew.a.run.app'
 
     if company and company != '':
         if company not in companies:

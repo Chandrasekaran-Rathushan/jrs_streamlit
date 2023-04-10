@@ -300,8 +300,9 @@ def show():
     hostname = st.get_option('browser.serverAddress')
     port = st.get_option('browser.serverPort')
 
-    # url_ = f"https://jrs-streamlit-c5xok5423q-ew.a.run.app/?page=review_employer&company={company}"
-    url_ = f"http://{hostname}:{port}/?page=review_employer&company={company}"
+    url_ = f"https://jrs-streamlit-c5xok5423q-ew.a.run.app/?page=review_employer&company={company}"
+    # url_ = f"http://{hostname}:{port}/?page=review_employer&company={company}"
+    
     st.write(url_)
 
     backdrop = st.markdown("""<div style="position: fixed;top: 0;left: 0;height: 100%;width: 100%;background-color: rgba(0, 0, 0, 0.5);z-index: 0;"></div>""", 
